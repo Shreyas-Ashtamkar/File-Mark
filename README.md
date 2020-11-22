@@ -7,8 +7,8 @@ The Main purpose of this is to handle bookmarking of files.
 ---
 Suggested Names : 
 
-[ ] bookmark
-[ ] pinmark
+:x: bookmark
+:correct: pinmark
 [ ] reception
 [ ] wdmark
 [X] filemark
