@@ -1,23 +1,33 @@
 # File-Mark <small>v0.1</small>
 
-<b>Filemark</b> This is a simple Files' Bookmarks manager.
+<b>Filemark</b> This is a Simple Files' Bookmarks Manager.
 
-The Main purpose of this is to handle bookmarking of files. 
+Making developers' life easy by helping to bookmark a certain folder and opening smartly opening the requiredPP softwares on basis of what development you do. 
 
----
-Suggested Names : 
+The open-the-file behavior is configurable easily. 
 
-<br>&nbsp; &nbsp; &nbsp; bookmark
-<br>&nbsp; &nbsp; &nbsp; pinmark
-<br>&nbsp; &nbsp; &nbsp; reception
-<br>&nbsp; &nbsp; &nbsp; wdmark
-<br>[X] filemark
-<br>&nbsp; &nbsp; &nbsp; project
-<br>&nbsp; &nbsp; &nbsp; tag
-<br>[X] dirrec
-<br>[X] bookplate
-<br>[X] fileplate
+The Main purpose of this is to handle <b>bookmarking</b> of files/folders. 
 
----
-<br>[X] - Available
-<br>&nbsp; &nbsp; &nbsp; - Not Available
+# SYNOPSIS
+
+```shell
+usage: filemark [OPTION] [FILE_OR_FOLDER]
+```
+
+## OPTIONS:
+
+| Short |     Options       |        ARGS        |                         Description                          |
+| ----- | ----------------- |--------------------| ------------------------------------------------------------ |
+| `-v`  |   `--version`     |                    |  Display Version Information of Command<br>                  |
+| `-h`  |   `--help`        |                    |  Display this HELP message.<br>                              |
+| `-a`  |   `--add`         |    FILE \| FOLDER  |  Bookmark some particular File or Folder <br>                |
+| `-s`  |   `--show`        |      BOOKMARK      |  Show details of some specific bookmarked item <br>          |
+|       |   `--show-all`    |                    |  Show all the currently set bookmarks. <br>                  |
+| `-o`  |   `--open`        |      BOOKMARK      |  Open a specific bookmarked file location. Open IDE. <br>    |
+|       |   `--ide`         |    TRUE \| FALSE   |  Open a specific bookmarked file location. Open IDE. <br>    |
+
+## EXAMPLE :
+
+```python
+#COMING SOON
+```
