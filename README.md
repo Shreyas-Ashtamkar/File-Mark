@@ -6,9 +6,15 @@ Making developers' life easy by helping to bookmark a certain folder and opening
 
 The open-the-file behavior is configurable easily. 
 
-The Main purpose of this is to handle <b>bookmarking</b> of files/folders. 
+The Main purpose of this is to handle <b>bookmarking</b> of files/folders.
 
-# SYNOPSIS
+<br>
+
+***
+
+<br>
+
+## SYNOPSIS
 
 ```shell
 usage: filemark [OPTION] [FILE_OR_FOLDER]
@@ -25,6 +31,13 @@ usage: filemark [OPTION] [FILE_OR_FOLDER]
 |       |   `--show-all`    |                    |  Show all the currently set bookmarks. <br>                  |
 | `-o`  |   `--open`        |      BOOKMARK      |  Open a specific bookmarked file location. Open IDE. <br>    |
 |       |   `--ide`         |    TRUE \| FALSE   |  Open a specific bookmarked file location. Open IDE. <br>    |
+
+
+<br>
+
+***
+
+<br>
 
 ## EXAMPLE :
 
