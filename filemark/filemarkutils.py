@@ -45,22 +45,37 @@ _parser.add_argument(
 	help="Show the entire list of currently bookmarked items."
 )
 _parser.add_argument(
-	"--detailed"        ,
-	action="store_true" ,
-	help="Show extra detailed output "
+	"--full-path",
+	action="store_true",
+	help="Show the entire path"
 )
 
-
+_parser.add_argument(
+	"-o",
+	"--open",
+	action="store_true",
+	help="Delete a bookmark's entry."
+)
+_parser.add_argument(
+	"--smart",
+	action="store_true",
+	help="Delete a bookmark's entry."
+)
+_parser.add_argument(
+	"--delete"          ,
+	action="store_true" ,
+	help="Delete a bookmark's entry."
+)
 
 
 # Collect Arguments and count ITEMS
 args	= _parser.parse_args()
 argc	= len(args.ITEM)
 
-if not any((args.add, args.show, args.version, args.show_only, args.show_all)):
+if not any((args.add, args.show, args.version, args.show_only, args.show_all, args.open, args.delete)):
 	args.add = True
 elif args.show:
-	if any((args.version, args.show_only, args.show_all, args.add)):
+	if any((args.version, args.show_only, args.show_all, args.add, args.delete)):
 		raise Exception("incompatible options")
 	elif argc > 0:
 		args.show = False
@@ -77,7 +92,7 @@ _WMESG = []
 
 try:
 	if args.add:
-		if any((args.version, args.show_only, args.show, args.detailed, args.show_all)):
+		if any((args.version, args.show_only, args.full_path, args.show_all, args.open, args.delete, args.smart)):
 			raise Exception("incompatible options")
 		elif argc < 1:
 			raise Exception("--add requires a file/folder as an argumet to bookmark")
@@ -85,23 +100,33 @@ try:
 			_WMESG.append("Too many Items in --add. using ONLY the first argument.")
 
 	elif args.version:
-		if any((args.add, args.show_only, args.show, args.show_all)):
+		if any((args.open, args.delete, args.smart, args.show_all, args.show_any)):
 			raise Exception("incompatible options")
 		elif argc > 0:
 			raise Exception("--version takes no arguments")
 	
+	elif args.delete:
+		if any((args.show_only, args.full_path, args.show_all, args.open, args.smart)):
+			raise Exception("incompatible options")
+		elif argc != 1:
+			raise Exception("--delete needs exactly one argument of bookmark number or name.")
 
 	elif args.show_only:
-		if any((args.version, args.add, args.show, args.show_all)):
+		if any((args.show_all, args.open, args.smart)):
 			raise Exception("incompatible options.")
 		elif argc < 1:
 			raise Exception("--show-only requires atleast \n\t\t one argument to show the details of. \n\n Did you mean --show-all ?")
 	
 	elif args.show_all:
-		if any((args.version, args.add, args.show, args.show_only)):
+		if any((args.open, args.smart)):
 			raise Exception("incompatible options.")
 		elif argc > 1:
 			raise Exception("--show-all takes no arguments.\n\n Did you mean --show-only ?")
+	elif args.open:
+		if argc != 1:
+			raise Exception("--open needs exactly one argument of bookmark number or name.")
+		args.full_path = True
+	
 	
 	else:
 		print("UNREACHABLE FROM CODE. FATAL")
@@ -159,7 +184,7 @@ def getBookmarks(selector:str=None) -> any:
 			if len(row) == 2:
 				bm_name, bm_path = row
 				bm_path = bm_path.split('/')
-				if len(bm_path)>4 and not args.detailed:
+				if len(bm_path)>4 and not args.full_path:
 					bm_path = '.../' + '/'.join(bm_path[-2:])
 				else:
 					bm_path = '/'.join(bm_path)
@@ -184,7 +209,8 @@ def getBookmarks(selector:str=None) -> any:
 			return small_table
 		
 		elif isinstance(selector, str):
-			for index, bm_path, bm_name in enumerate(table):
+			for index, row in enumerate(table):
+				bm_path, bm_name = row
 				if bm_name == selector:
 					selector = index
 					break
@@ -209,7 +235,9 @@ def saveBookmark(fileName:str = None) -> bool:
 		raise TypeError("fileName cannot be None")
 
 	if not _isValid(fileName):
-		raise FileNotFoundError(fileName+" Not found.")
+		raise FileNotFoundError(fileName + " Not found.")
+
+	
 		
 	with open(".bookmarks", 'a') as bm_file:
 		bm_file.write(bookmarkEntry(fileName))

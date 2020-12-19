@@ -34,7 +34,34 @@ if args.show_all:
 	print(table)
 	exit(0)
 
+
+
 # CASE 4 - Add a new bookmark to the list, automatically
 if args.add:
 	fileName = args.ITEM[0]
 	saveBookmark(fileName)
+
+
+
+if args.open:
+	bm_list = getBookmarks(args.ITEM)
+	bm_count = len(bm_list)
+	table = _tabulate(
+		getBookmarks(args.ITEM),
+		headers=["S.No.", "Name", "Path"],
+		tablefmt="pretty",
+		showindex=True
+	)
+
+	if bm_count == 1:
+		print("opening : ", bm_list[0][2])
+	elif bm_count > 1:
+		print(f"Error : The Argument Suites Multiple Answers. ")
+		print("\n\nPlease Choose the exact number. ")
+		print(table)
+	else:
+		print(f"Error : Not Found {bm_list}")
+		print("\n\nAvailable options: ")
+		print(table)
+
+		
