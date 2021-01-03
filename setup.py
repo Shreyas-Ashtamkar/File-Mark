@@ -63,7 +63,7 @@ setup(
     
     author="Shreyas Ashtamkar",
     author_email="shreyu@programmer.net",
-    url="https://github.com/Shreyas-Ashtamkar/Trash-CLI",
+    url="https://github.com/Shreyas-Ashtamkar/File-Mark",
 
     classifiers=[
         "Programming Language :: Python :: 3",
@@ -75,13 +75,13 @@ setup(
     ],
 
 	python_requires='>=3.6',
-    install_requires=['autopep8==1.5.4', 'pycodestyle==2.6.0', 'tabulate==0.8.7', 'toml==0.10.2'],
+    install_requires=['autopep8>=1.5.4', 'pycodestyle>=2.6.0', 'tabulate>=0.8.7', 'toml>=0.10.2'],
 
     packages=find_packages(),
     py_modules=['filemark.filemarkutils'],
 
     entry_points={
-		'console_scripts': ['trash=trashit.command_line:main'],
+		'console_scripts': ['filemark=filemark.command_line:main'],
   	},
 
   	include_package_data=True,

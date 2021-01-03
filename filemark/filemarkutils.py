@@ -2,8 +2,9 @@ from os import kill as _os_kill
 from os import getcwd as _pwd
 from os import system as _run
 from os import listdir as _ls
+from os import environ as env
 from os import getppid as _os_getppid
-from os.path import exists as _isValid
+from os.path import exists as _isValid, isfile
 from os.path import isdir as _isDir
 from os.path import isfile as _isFile
 from os.path import abspath as _abspath
@@ -12,13 +13,19 @@ import argparse as _argparse
 
 from signal import SIGHUP as _SIGHUP
 
-_parser = _argparse.ArgumentParser()
-_mutulal_exlusion_parser = _parser.add_mutually_exclusive_group()
+# GLOBAL_CONSTANTS
 SMART_CONTROLS = {
     "ide": "code",
     "ext": ["py", "py3", "cpp", "java", "js", "php", "c", "html"],
     "url": "https://localhost:8000/"
 }
+
+BOOKMARK_STOREAGE = env["HOME"]+"/.bookmarks"
+if not _isFile(BOOKMARK_STOREAGE):
+    _run("touch "+BOOKMARK_STOREAGE)
+
+_parser = _argparse.ArgumentParser()
+_mutulal_exlusion_parser = _parser.add_mutually_exclusive_group()
 
 # Actual Arguments
 _parser.add_argument(
@@ -194,7 +201,8 @@ try:
         '''
         Show the bookmarks stored over time by the user.
         '''
-        with open(".bookmarks") as bm_file:
+        
+        with open(BOOKMARK_STOREAGE) as bm_file:
             table = []
             for row in bm_file.readlines():
                 row = row.replace('"', '')
@@ -253,7 +261,7 @@ try:
         if not _isValid(fileName):
             raise FileNotFoundError(fileName + " Not found.")
 
-        with open(".bookmarks", 'a') as bm_file:
+        with open(BOOKMARK_STOREAGE, 'a') as bm_file:
             bm_file.write(bookmarkEntry(fileName))
 
     def openBookmark(bookmarkPath):
