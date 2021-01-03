@@ -1,4 +1,4 @@
-from .filemarkutils import args, bookmarkEntry, quitTerminal as _quitTerminal, _isValid, _tabulate, saveBookmark, getBookmarks
+from .filemarkutils import args, bookmarkEntry, openBookmark, quitTerminal as _quitTerminal, _isValid, makeTable, saveBookmark, getBookmarks
 
 
 # CASE 1 - Display Version
@@ -14,23 +14,14 @@ if args.show_only:
 		print(f"None of these found --> {args.ITEM}")
 		exit(1)
 	else:
-		table = _tabulate(
-			output, 
-			headers=["S.No.","Name", "Path"], 
-			tablefmt="pretty", 
-		)
+		table = makeTable(output)
 		print(table)
 		exit(0)
 
 
 # CASE 3 - Show all the bookmarks
 if args.show_all:
-	table = _tabulate(
-		getBookmarks(), 
-		headers=["S.No.","Name", "Path"], 
-		tablefmt="pretty", 
-		showindex=True
-	)
+	table = makeTable(getBookmarks())
 	print(table)
 	exit(0)
 
@@ -46,15 +37,13 @@ if args.add:
 if args.open:
 	bm_list = getBookmarks(args.ITEM)
 	bm_count = len(bm_list)
-	table = _tabulate(
-		getBookmarks(args.ITEM),
-		headers=["S.No.", "Name", "Path"],
-		tablefmt="pretty",
-		showindex=True
-	)
+	table = makeTable(getBookmarks(args.ITEM))
 
 	if bm_count == 1:
-		print("opening : ", bm_list[0][2])
+		bm_path = bm_list[0][2]
+		print("opening :", bm_path, "in terminal", "only." if args.not_smart else "also.")
+		openBookmark(bm_path)
+		
 	elif bm_count > 1:
 		print(f"Error : The Argument Suites Multiple Answers. ")
 		print("\n\nPlease Choose the exact number. ")

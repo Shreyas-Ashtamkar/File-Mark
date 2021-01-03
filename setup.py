@@ -1,54 +1,61 @@
 from setuptools import setup, find_packages
 
 long_description = """
-# Trash-it - V1.0
+# File-Mark
 
-A Simple, command line utility to safely put the files/folders to the bin. 
-(A Safer way than rm command. )
+<b>Filemark</b> This is a Simple Files' Bookmarks Manager.
 
-Have you ever deleted the wrong files by `rm` which were not backed up ? Have you felt that Panic ? That eagerness to bring back the files that have been lost ? 
+Making developers' life easy by helping to bookmark a certain folder and opening smartly opening the requiredPP softwares on basis of what development you do. 
 
-If yes, or no, anyways, I have a tool, which can be verry usefull to you. (*can*)
+The open-the-file behavior is configurable easily. 
 
-## USAGE
+The Main purpose of this is to handle <b>bookmarking</b> of files/folders.
+
+<br>
+
+***
+
+<br>
+
+## SYNOPSIS
+
+```shell
+usage: filemark [OPTION] [FILE_OR_FOLDER]
+```
+
+## OPTIONS:
+
+| Short |     Options       |        ARGS        |                         Description                          |
+| ----- | ----------------- |--------------------| ------------------------------------------------------------ |
+| `-v`  |   `--version`     |                    |  Display Version Information of Command<br>                  |
+| `-h`  |   `--help`        |                    |  Display this HELP message.<br>                              |
+| `-a`  |   `--add`         |    FILE \| FOLDER  |  Bookmark some particular File or Folder <br>                |
+| `-s`  |   `--show`        |      BOOKMARK      |  Show details of some specific bookmarked item <br>          |
+|       |   `--show-all`    |                    |  Show all the currently set bookmarks. <br>                  |
+| `-o`  |   `--open`        |      BOOKMARK      |  Open a specific bookmarked file location. Open IDE. <br>    |
+|       |   `--ide`         |    TRUE \| FALSE   |  Open a specific bookmarked file location. Open IDE. <br>    |
 
 
-`USAGE   : trash <options> [<fileName1>,<fileName1>,<fileName1>]`
+<br>
 
+***
 
-## Options Available :
-
-
-| Short |     Options       |                Description                                   |
-| ----- | ----------------- | ------------------------------------------------------------ |
-| `-v`  |   `--version`     |  Display Version Information of Command<br>                  |
-| `-h`  |   `--help`        |  Display this HELP message.<br>                              |
-| `-a`  |   `--add`         |  Add Files to the Trash<br>                                  |
-| `-s`  |   `--show`        |  Show all the files and folders, currently in trash.<br>     |
-|       |   `--restore`     |  Restore some files from the Trash.<br>                      |
-|       |   `--restore-all` |  Restore ALL the files and folders currently in trash.<br>   |
+<br>
 
 ## EXAMPLE :
 
-
-```shell
-trash --help
+```python
+#COMING SOON
 ```
-```shell
-trash --add file1.xyz file2.xyz file3.png ...
-```
-## NOTE : 
 
-This is free software; you are free to change and redistribute it.<br/>
-There is NO WARRANTY, to the extent permitted by law.
 """
 
 setup(
-	name='trashit',
-	version='1.5.1',
+	name='filemark',
+	version='0.1.0',
 	license='MIT',
 	
-	description='A Python-built package for sending files or folders to Trash.',
+	description='A Python-built Command line tool for bookmarking and smartly-reopening project folders (for developers)',
 	long_description=long_description,
     long_description_content_type="text/markdown",
     
@@ -66,10 +73,10 @@ setup(
     ],
 
 	python_requires='>=3.6',
-    install_requires=['colorama'],
+    install_requires=['autopep8==1.5.4', 'pycodestyle==2.6.0', 'tabulate==0.8.7', 'toml==0.10.2'],
 
     packages=find_packages(),
-    py_modules=['trashit.trashlib', 'trashit.trashcommands'],
+    py_modules=['filemark.filemarkutils'],
 
     entry_points={
 		'console_scripts': ['trash=trashit.command_line:main'],
