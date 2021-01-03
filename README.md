@@ -9,6 +9,15 @@ The open-the-file behavior is configurable easily.
 The Main purpose of this is to handle <b>bookmarking</b> of files/folders.
 
 <br>
+
+***
+<br>
+
+## INSTALLATION
+```shell
+sudo pip install filemark
+```
+
 ***
 <br>
 
@@ -17,6 +26,9 @@ The Main purpose of this is to handle <b>bookmarking</b> of files/folders.
 ```shell
 usage: filemark [OPTION] [FILE_OR_FOLDER]
 ```
+
+***
+<br>
 
 ## OPTIONS:
 
@@ -34,16 +46,6 @@ usage: filemark [OPTION] [FILE_OR_FOLDER]
 |       |   `--not-smart`   |    TRUE \| FALSE   |  Extra Flag with --open for terminal-open only. <br>         |
 
 
-<br>
-***
-<br>
-
-## INSTALLATION : 
-```shell
-sudo pip install filemark
-```
-
-<br>
 ***
 <br>
 
