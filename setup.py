@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
 long_description = """
-# File-Mark
+# File-Mark <small>v0.1</small>
 
 <b>Filemark</b> This is a Simple Files' Bookmarks Manager.
 
@@ -30,10 +30,13 @@ usage: filemark [OPTION] [FILE_OR_FOLDER]
 | `-v`  |   `--version`     |                    |  Display Version Information of Command<br>                  |
 | `-h`  |   `--help`        |                    |  Display this HELP message.<br>                              |
 | `-a`  |   `--add`         |    FILE \| FOLDER  |  Bookmark some particular File or Folder <br>                |
-| `-s`  |   `--show`        |      BOOKMARK      |  Show details of some specific bookmarked item <br>          |
+| `-s`  |   `--show`        |      BOOKMARK      |  Show bookmarked items <br>                                  |
+|       |   `--show-only`   |                    |  Show details of some specific bookmarked item <br>          |
 |       |   `--show-all`    |                    |  Show all the currently set bookmarks. <br>                  |
 | `-o`  |   `--open`        |      BOOKMARK      |  Open a specific bookmarked file location. Open IDE. <br>    |
-|       |   `--ide`         |    TRUE \| FALSE   |  Open a specific bookmarked file location. Open IDE. <br>    |
+| `-a`  |   `--delete`      |    FILE \| FOLDER  |  Delete a bookmarked entry<br>                               |
+|       |   `--full-path`   |    TRUE \| FALSE   |  Extra Flag with --show to entire path (not short). <br>     |
+|       |   `--not-smart`   |    TRUE \| FALSE   |  Extra Flag with --open for terminal-open only. <br>         |
 
 
 <br>
@@ -47,7 +50,6 @@ usage: filemark [OPTION] [FILE_OR_FOLDER]
 ```python
 #COMING SOON
 ```
-
 """
 
 setup(
