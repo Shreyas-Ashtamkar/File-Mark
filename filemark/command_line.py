@@ -1,4 +1,4 @@
-from .filemarkutils import args, bookmarkEntry, openBookmark, quitTerminal as _quitTerminal, _isValid, makeTable, saveBookmark, getBookmarks
+from .filemarkutils import BOOKMARK_STOREAGE, args, bookmarkEntry, openBookmark, quitTerminal as _quitTerminal, _isValid, makeTable, saveBookmark, getBookmarks
 
 def main():
 
@@ -26,15 +26,13 @@ def main():
 		print(table)
 		exit(0)
 
-
-
-	# CASE 4 - Add a new bookmark to the list, automatically
+	# CASE 4 - Add a new bookmark
 	if args.add:
 		fileName = args.ITEM[0]
 		saveBookmark(fileName)
+		exit(0)
 
-
-
+	# CASE 5 - Open the bookmarked location
 	if args.open:
 		bm_list = getBookmarks(args.ITEM)
 		bm_count = len(bm_list)
@@ -53,6 +51,13 @@ def main():
 			print(f"Error : Not Found {bm_list}")
 			print("\n\nAvailable options: ")
 			print(table)
+		exit(0)
+
+	# CASE 6 - Delete a bookmark entry.
+	if args.delete:
+		print("Delete is still unimplemented. \n\nMANUAL : Head over to the file at ->", BOOKMARK_STOREAGE, "and remove the specific line, (for now)")
+
+
 
 if __name__ == "__main__":
 	main()

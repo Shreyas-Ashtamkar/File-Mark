@@ -101,14 +101,6 @@ for arg in args.__dict__:
 
 argc -= int(itmc > 0)
 
-print(argc)
-print(itmc)
-
-if argc == 0:
-    print("add")
-    print(args.ITEM)
-
-
 # Custom Exceptions
 class CompatibilityError(Exception):
     def __init__(self) -> None:
@@ -132,36 +124,33 @@ elif args.show:
 # CHECK ERRORS
 _WMESG = []
 
-# for debugging
-# print(args)
-
 try:
     if args.add:
         if extra_flags:
             raise CompatibilityError()
-        elif argc < 1:
+        elif itmc < 1:
             raise FilemarkError("--add requires a file/folder as an argumet to bookmark")
-        elif argc > 1:
+        elif itmc > 1:
             _WMESG.append("Too many Items in --add. using ONLY the first argument.")
 
     elif args.version:
         if extra_flags:
             raise CompatibilityError()
-        elif argc > 0:
+        elif itmc > 0:
             raise FilemarkError("--version takes no arguments")
 
     elif args.delete:
         if extra_flags:
             raise CompatibilityError()
-        elif argc != 1:
+        elif itmc != 1:
             raise FilemarkError("--delete needs exactly one argument of bookmark number or name.")
 
     elif args.show_only:
-        if argc < 1:
+        if itmc < 1:
             raise FilemarkError("--show-only requires atleast \n\t\t one argument. \n\n Did you mean --show-all ?")
 
     elif args.show_all:
-        if argc > 1:
+        if itmc > 1:
             raise FilemarkError("--show-all takes no arguments.\n\n Did you mean --show-only ?")
 
     elif args.open:
@@ -281,7 +270,7 @@ try:
                     _run(f"{SMART_CONTROLS['ide']} {bookmarkPath}")
 
             #SMART_CONTROLS
-            print("Opening smartly, the folder.")
+            # print("Opening smartly, the folder.")
 
     def makeTable(items):
         if not items:
