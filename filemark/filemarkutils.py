@@ -111,7 +111,13 @@ class FilemarkError(Exception):
 
 # when nothing is given as input
 if argc == 0:
-    args.add = True
+    # when items supplied consider that it has to add 
+    if itmc > 0:
+        args.add = True
+    # when no items supplied consider show
+    else:
+        args.show = True
+        args.show_all = True
 
 elif args.show:
     if args.not_smart:
