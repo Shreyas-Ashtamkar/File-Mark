@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
 long_description = """
-# File-Mark <small>v0.1</small>
+# File-Mark
 
 <b>Filemark</b> This is a Simple Files' Bookmarks Manager.
 

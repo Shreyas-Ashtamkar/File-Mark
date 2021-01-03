@@ -1,4 +1,4 @@
-# File-Mark <small>v0.1</small>
+# File-Mark
 
 <b>Filemark</b> This is a Simple Files' Bookmarks Manager.
 
@@ -9,9 +9,7 @@ The open-the-file behavior is configurable easily.
 The Main purpose of this is to handle <b>bookmarking</b> of files/folders.
 
 <br>
-
 ***
-
 <br>
 
 ## SYNOPSIS
@@ -37,9 +35,16 @@ usage: filemark [OPTION] [FILE_OR_FOLDER]
 
 
 <br>
-
 ***
+<br>
 
+## INSTALLATION : 
+```shell
+sudo pip install filemark
+```
+
+<br>
+***
 <br>
 
 ## EXAMPLE :
