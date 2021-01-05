@@ -99,18 +99,18 @@ for arg in args.__dict__:
     if args.__dict__[arg]:
         argc += 1
 
-argc -= int(itmc > 0)
+argc -= int(itmc > 0) + int(extra_flags)
 
 # Custom Exceptions
 class CompatibilityError(Exception):
-    def __init__(self) -> None:
-        super("incompatible options")
+    def __str__(self) -> str:
+        return "Incompatible options"
 
 class FilemarkError(Exception):
     pass
 
 # when nothing is given as input
-if argc == 0:
+if argc < 1:
     # when items supplied consider that it has to add 
     if itmc > 0:
         args.add = True
@@ -119,7 +119,7 @@ if argc == 0:
         args.show = True
         args.show_all = True
 
-elif args.show:
+if args.show:
     if args.not_smart:
         raise CompatibilityError()
     elif itmc > 0:
@@ -261,7 +261,10 @@ try:
 
     def openBookmark(bookmarkPath):
         if _isValid(bookmarkPath):
-            _run(f"x-terminal-emulator --workdir {bookmarkPath} &")
+            if _run("command -v gnome-terminal")==0:
+                _run(f"gnome-terminal --working-directory=\"{bookmarkPath}\"")
+            else:
+                _run(f"x-terminal-emulator bash --workdir \"{bookmarkPath}\"")
         else:
             raise FileNotFoundError(bookmarkPath + " Not found.")
 
