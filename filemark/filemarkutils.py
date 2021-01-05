@@ -1,6 +1,7 @@
 from os import kill as _os_kill
 from os import getcwd as _pwd
 from os import system as _run
+from subprocess import Popen as _fork_run
 from os import listdir as _ls
 from os import environ as env
 from os import getppid as _os_getppid
@@ -261,10 +262,15 @@ try:
 
     def openBookmark(bookmarkPath):
         if _isValid(bookmarkPath):
-            if _run("command -v gnome-terminal")==0:
-                _run(f"gnome-terminal --working-directory=\"{bookmarkPath}\"")
+            if _isFile(bookmarkPath):
+                folderPath = "/".join(bookmarkPath.split("/")[:-1])
             else:
-                _run(f"x-terminal-emulator bash --workdir \"{bookmarkPath}\"")
+                folderPath = bookmarkPath
+                
+            if _run("command -v gnome-terminal")==0:
+                    _fork_run(["gnome-terminal",f"working-directory=\"{folderPath}\""])
+            else:
+                _fork_run(["x-terminal-emulator",f"workdir \"{folderPath}\""])
         else:
             raise FileNotFoundError(bookmarkPath + " Not found.")
 
