@@ -4,7 +4,7 @@ def main():
 
 	# CASE 1 - Display Version
 	if args.version:
-		print("Version 0.1")
+		print("Version 0.1.2")
 		exit(0)
 
 
@@ -56,6 +56,7 @@ def main():
 	# CASE 6 - Delete a bookmark entry.
 	if args.delete:
 		print("Delete is still unimplemented. \n\nMANUAL : Head over to the file at ->", BOOKMARK_STOREAGE, "and remove the specific line, (for now)")
+		exit(0)
 
 
 

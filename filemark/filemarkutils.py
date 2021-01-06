@@ -189,7 +189,7 @@ try:
 
             for bms in getBookmarks():
                 if bms[1] == filePath:
-                    raise Exception(f"{bms[0]} Already Bookmarked")
+                    raise Exception(bms[0] +" Already Bookmarked")
             
             return filePath
 
@@ -297,9 +297,9 @@ try:
             
             #Terminal_Open
             if _run("command -v gnome-terminal")==0:
-                    _fork_run(["gnome-terminal",f"working-directory=\"{folderPath}\""])
+                    _fork_run(["gnome-terminal","working-directory=\"" + folderPath + "\""])
             else:
-                _fork_run(["x-terminal-emulator",f"workdir \"{folderPath}\""])
+                _fork_run(["x-terminal-emulator","workdir \"" + folderPath + "\""])
             
             open_EXT = set()
             #SMART_FUNCTIONALITY
@@ -314,11 +314,11 @@ try:
                 # e.g. html needs code as well as 
                 for e in open_EXT:
                     for i in SMART_CONTROLS['ide'][e]:
-                        if _run(f"command -v {i}") == 0:
+                        if _run("command -v " + i) == 0:
                             if e != "med":
-                                _fork_run(f"{i} {bookmarkPath}")
+                                _fork_run(i+" "+bookmarkPath)
                             else:
-                                _fork_run(f"{i} {folderPath}")
+                                _fork_run(i+" "+folderPath)
 
         else:
             raise FileNotFoundError(bookmarkPath + " Not found.")

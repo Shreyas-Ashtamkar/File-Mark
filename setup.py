@@ -61,7 +61,7 @@ usage: filemark [OPTION] [FILE_OR_FOLDER]
 
 setup(
 	name='filemark',
-	version='0.1.0',
+	version='0.1.2',
 	license='MIT',
 	
 	description='A Python-built Command line tool for bookmarking and smartly-reopening project folders (for developers)',
@@ -74,6 +74,8 @@ setup(
 
     classifiers=[
         "Programming Language :: Python :: 3",
+        "Programming Language :: Python :: 3.4",
+        "Programming Language :: Python :: 3.5",
         "Programming Language :: Python :: 3.6",
         "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",
