@@ -1,11 +1,12 @@
 from os import kill as _os_kill
 from os import getcwd as _pwd
 from os import system as _run
+from posix import listdir
 from subprocess import Popen as _fork_run
 from os import listdir as _ls
 from os import environ as env
 from os import getppid as _os_getppid
-from os.path import exists as _isValid, isfile
+from os.path import exists as _isValid
 from os.path import isdir as _isDir
 from os.path import isfile as _isFile
 from os.path import abspath as _abspath
@@ -16,8 +17,16 @@ from signal import SIGHUP as _SIGHUP
 
 # GLOBAL_CONSTANTS
 SMART_CONTROLS = {
-    "ide": "code",
-    "ext": ["py", "py3", "cpp", "java", "js", "php", "c", "html", "md"],
+    "ide": {
+            "alg" : ["code", "subl", "atom", "gedit","xdg-open"],
+            "web" : ["sensible-browser"],
+            "med" : ["xdg-open"],
+        },
+    "ext": {
+            "alg" : ["py", "py3", "cpp", "java", "js", "php", "c", "html", "md"],
+            "web" : ["html"],
+            "med" : ["jpg", "jpeg", "png", "svg", "webp", "mp4", "mp3", "gif", "mov", "mkv", "flv", "avi", "webm"]
+        },
     "url": "https://localhost:8000/"
 }
 
@@ -175,9 +184,17 @@ try:
 
     def _getPath(fileName: str = None) -> any:
         if _isValid(fileName):
-            return _abspath(fileName)
+            filePath = _abspath(fileName)
+            args.full_path = True
+
+            for bms in getBookmarks():
+                if bms[1] == filePath:
+                    raise Exception(f"{bms[0]} Already Bookmarked")
+            
+            return filePath
+
         else:
-            return None
+            raise FileNotFoundError()
 
     # Accessible from external Files
 
@@ -190,6 +207,9 @@ try:
             raise Exception("fileName cannot be None")
 
         filePath = _getPath(fileName)
+
+        if fileName in (".", ".."):
+            fileName = filePath.split('/')[-1]
 
         return "\n" + fileName + "|" + filePath
 
@@ -262,23 +282,47 @@ try:
 
     def openBookmark(bookmarkPath):
         if _isValid(bookmarkPath):
+            entirePath = bookmarkPath.split("/")
+            endOfPath  = entirePath[-1]
+
             if _isFile(bookmarkPath):
-                folderPath = "/".join(bookmarkPath.split("/")[:-1])
+                folderPath = "/".join(entirePath[:-1])
+                ext = [endOfPath.split(".")[-1].lower()]
             else:
                 folderPath = bookmarkPath
-                
+                ext        = []
+                for file in _ls(folderPath):
+                    if _isFile(file):
+                        ext.append(file.split(".")[-1].lower())
+            
+            #Terminal_Open
             if _run("command -v gnome-terminal")==0:
                     _fork_run(["gnome-terminal",f"working-directory=\"{folderPath}\""])
             else:
                 _fork_run(["x-terminal-emulator",f"workdir \"{folderPath}\""])
+            
+            open_EXT = set()
+            #SMART_FUNCTIONALITY
+            if not args.not_smart:
+                for fileType in ext:
+                    #set open_EXT
+                    for e in SMART_CONTROLS['ext']:
+                        if fileType in e:
+                            open_EXT.add(fileType)
+
+                #Now Actully open every sensibe thing needed for that 
+                # e.g. html needs code as well as 
+                for e in open_EXT:
+                    for i in SMART_CONTROLS['ide'][e]:
+                        if _run(f"command -v {i}") == 0:
+                            if e != "med":
+                                _fork_run(f"{i} {bookmarkPath}")
+                            else:
+                                _fork_run(f"{i} {folderPath}")
+
         else:
             raise FileNotFoundError(bookmarkPath + " Not found.")
 
-        if not args.not_smart:
-            for file in _ls(folderPath):
-                if file.split('.')[-1] in SMART_CONTROLS['ext']:
-                    _run(f"{SMART_CONTROLS['ide']} {bookmarkPath}")
-                    break
 
             #SMART_CONTROLS
             # print("Opening smartly, the folder.")
