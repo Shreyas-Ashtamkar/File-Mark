@@ -17,7 +17,7 @@ from signal import SIGHUP as _SIGHUP
 # GLOBAL_CONSTANTS
 SMART_CONTROLS = {
     "ide": "code",
-    "ext": ["py", "py3", "cpp", "java", "js", "php", "c", "html"],
+    "ext": ["py", "py3", "cpp", "java", "js", "php", "c", "html", "md"],
     "url": "https://localhost:8000/"
 }
 
@@ -275,14 +275,10 @@ try:
             raise FileNotFoundError(bookmarkPath + " Not found.")
 
         if not args.not_smart:
-            if _isDir(bookmarkPath):
-                for file in _ls(bookmarkPath):
-                    if file.split('.')[-1] in SMART_CONTROLS['ext']:
-                        _run(f"{SMART_CONTROLS['ide']} {bookmarkPath}")
-                        break
-            else:
-                if bookmarkPath.split('/')[-1].split('.')[-1] in SMART_CONTROLS['ext']:
+            for file in _ls(folderPath):
+                if file.split('.')[-1] in SMART_CONTROLS['ext']:
                     _run(f"{SMART_CONTROLS['ide']} {bookmarkPath}")
+                    break
 
             #SMART_CONTROLS
             # print("Opening smartly, the folder.")
